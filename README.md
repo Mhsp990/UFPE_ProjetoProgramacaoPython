@@ -14,3 +14,6 @@ Portanto, o robo coletor poderá "manipular" o conteúdo de bandeja através de 
 Bandeja possuirá uma lista dos itens armazenados, além de que usará o descriptor "QuantidadeValida".
 OBS : Estou supondo que basta adicionar o item coletado via sucção em bandeja "diretamente", sem precisar de movimentos na grade até a localização da bandeja.
 
+
+ESTRATÉGIAS
+Rota direta : Vai direto até uma pratileira (coordenada).

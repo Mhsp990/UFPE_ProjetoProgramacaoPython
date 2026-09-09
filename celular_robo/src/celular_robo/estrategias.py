@@ -10,11 +10,11 @@
 from abc import ABC, abstractmethod
 
 class RotaColeta(ABC):
-    _registro = {}
+    _registro_rotas = {}
 
     def __init_subclass__(cls, **kwargs):
         super().__init_subclass__(**kwargs)
-        RotaColeta._registro[cls.__name__] = cls
+        RotaColeta._registro_rotas[cls.__name__] = cls
 
 
     def __init__(self):
@@ -26,6 +26,8 @@ class RotaColeta(ABC):
 
 
 class RotaDireta(RotaColeta):
+    #Vai direto até cada pratileira.
+    #
     pass
 
 class RotaComDuplaConferencia(RotaColeta):
