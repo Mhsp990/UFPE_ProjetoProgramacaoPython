@@ -13,13 +13,12 @@
 #   negativa nem passa do pedido.
 # - __str__/__repr__ (robô) e __len__ (bandeja — quantos itens já coletados).
 
-from celular_robo.robo_base import *
-from celular_robo.excecoes import *
+from celular_robo.robo_base import Robo, Direcao
+from celular_robo.excecoes import ErroColeta
 
-from celular_robo.estrategias import *
-from celular_robo.comandos import *
-from celular_robo.modos import *
-#from celular_robo.src.celular_robo.robo_base import Direcao
+from celular_robo.estrategias import RotaDireta
+from celular_robo.comandos import CommandColeta
+from celular_robo.modos import ModoColetando
 #from celular_robo.robo_base import Robo, Coordenada
 
 
@@ -166,5 +165,6 @@ print('------------------------')
 print(my_robo)
 
 comando = CommandColeta('Item AX', (3,4), 5)
+comando.executar(my_robo)
 
 print(my_robo)
