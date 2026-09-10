@@ -14,7 +14,7 @@
 # - __str__/__repr__ (robô) e __len__ (bandeja — quantos itens já coletados).
 
 from celular_robo.robo_base import Robo, Direcao
-from celular_robo.excecoes import ErroColeta
+from celular_robo.excecoes import PedidoInvalido
 
 from celular_robo.estrategias import RotaDireta
 from celular_robo.comandos import CommandColeta
