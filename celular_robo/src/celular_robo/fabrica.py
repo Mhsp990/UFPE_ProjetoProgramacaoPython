@@ -10,3 +10,43 @@
 # assinatura abaixo sem também atualizar aquele arquivo):
 #
 #   criar_robo_configurado(tipo_nome, nome, estrategia_nome=..., area_nome=...)
+
+
+from celular_robo.robo_base import Robo
+from celular_robo.estrategias import RotaColeta
+from celular_robo.modos import *
+
+
+def criar_robo_coletor(tipo_nome : str , tipo_estrategia : str, tipo_modo: str ,nome : str, **kwargs):
+
+    #Registro retorna objetos do tipo classe.
+    classe = Robo._registro.get(tipo_nome) 
+    estrategia = RotaColeta._registro_rotas.get(tipo_estrategia)
+    modo = ModoBase._registro.get(tipo_modo)
+
+    
+    #Validando se os tipos (classes) existem.
+    if classe is None:
+        disponiveis = ", ".join(sorted(Robo._registro))
+        raise ValueError(f"tipo desconhecido: {tipo_nome!r}. Disponíveis: {disponiveis}")
+    
+
+    if estrategia is None:
+        disponiveis = ", ".join(sorted(RotaColeta._registro))
+        raise ValueError(f"tipo desconhecido: {tipo_estrategia!r}. Disponíveis: {disponiveis}")
+
+
+    if modo is None: #
+        disponiveis = ", ".join(sorted(ModoOperacao._registro))
+        raise ValueError(f"tipo desconhecido: {tipo_modo!r}. Disponíveis: {disponiveis}")
+
+
+    #Validando se as configurações são válidas
+    if validar_robo_coletor():
+        return classe(nome, estrategia = estrategia, **kwargs)
+    else:
+        raise ValueError(f"Não foi possível criar o robo devido a configurações inválidas. Resolva-as e tente novamente.")
+
+
+def validar_robo_coletor() -> bool:
+    pass
