@@ -14,6 +14,12 @@ from celular_robo.robo import Robo
 
 class ModoColetando(ModoOperacao):
 #Anda até o local e coleta.
+    def mover():
+        #Explicação : 
+        print('NOT IMPLEMENTED')
+        pass
+
+
     def coletar(self, robo : Robo, posicao_alvo_x, posicao_alvo_y):
        return robo.estrategia.mover(robo, posicao_alvo_x, posicao_alvo_y)
            

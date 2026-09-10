@@ -30,7 +30,7 @@ class CommandColeta(Comando):
                 return False
 
             #Agora, já que estamos na localização correta:
-            quantidade_restante = self.quantidade
+            #quantidade_restante = self.quantidade
             for i in range(self.quantidade):
                 if robo.ativarSuccao():
                     robo.guardarItemBandeja(self.codinome, 1) #Neste caso, estou considerando um por vez.
