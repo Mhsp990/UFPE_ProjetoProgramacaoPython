@@ -168,3 +168,4 @@ comando = CommandColeta('Item AX', (3,4), 5)
 comando.executar(my_robo)
 
 print(my_robo)
+print(f'Minha bandeja tem : {len(my_robo)}')

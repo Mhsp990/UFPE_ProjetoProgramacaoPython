@@ -55,7 +55,7 @@ class RotaDireta(RotaColeta):
             
 
 
-        if num_movimentacoes < max_movimentacoes:
+        if num_movimentacoes > max_movimentacoes:
             print("Rota direta falhou em mover-se ate o alvo antes do maximo")
             return False
         else:
