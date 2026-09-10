@@ -15,7 +15,7 @@ O algoritmo funcionará, basicamente, seguindo o seguinte fluxo:
 7- Ao chegar no local, retorna True. (False caso não). A execução do algoritmo retorna a "ComandoColeta.executar()".
 8- Confirmada a chegada, ComandoColeta ativa a coleta do item em Robo.
 9- Robo Adiciona a bandeja, que é um objeto Bandeja (que TENTA adicionar).
-9- Caso a bandeja esteja cheia, emite o sinal para a equipe analisar.
+10- Caso a bandeja esteja cheia, emite o sinal para a equipe analisar.
 
 
 
