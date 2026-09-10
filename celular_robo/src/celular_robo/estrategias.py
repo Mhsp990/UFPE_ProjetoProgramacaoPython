@@ -12,8 +12,8 @@ from celular_robo.robo_base import Direcao
 
 
 class RotaColeta(ABC):
-    posicao_alvo_x = 0
-    posicao_alvo_y = 0
+    # posicao_alvo_x = 0
+    # posicao_alvo_y = 0
 
     _registro_rotas = {}
 
@@ -22,11 +22,6 @@ class RotaColeta(ABC):
         RotaColeta._registro_rotas[cls.__name__] = cls
 
 
-    def __init__(self, alvo_x, alvo_y):
-        self.posicao_alvo_x = alvo_x
-        self.posicao_alvo_y = alvo_y
-        pass
-
     @abstractmethod   
     def mover(self, robo): pass
     
@@ -34,16 +29,16 @@ class RotaColeta(ABC):
 
 class RotaDireta(RotaColeta):
     #Vai direto até cada pratileira.
-    def mover(self, robo):
+    def mover(self, robo, posicao_alvo_x, posicao_alvo_y):
 
-        alvo = (self.posicao_alvo_x, self.posicao_alvo_y)
+        alvo = (posicao_alvo_x, posicao_alvo_y)
 
         num_movimentacoes = 0
-        max_movimentacoes = 100 #Evitar loops infinitos.
+        max_movimentacoes = 100 #Evitar loops longos.
 
 
         while robo.posicao != alvo and (num_movimentacoes < max_movimentacoes):
-            direcao = self._direcao_para_alvo(robo)
+            direcao = self._direcao_para_alvo(robo, posicao_alvo_x, posicao_alvo_y)
             robo.girar_ate(direcao)
 
             num_movimentacoes += 1
@@ -77,15 +72,15 @@ class RotaDireta(RotaColeta):
 
 
 
-    def _direcao_para_alvo(self, robo):
+    def _direcao_para_alvo(self, robo, posicao_alvo_x, posicao_alvo_y):
     #Verifica qual direcao deve girar para ir até a posição alvo.
-        if robo.x < self.posicao_alvo_x:
+        if robo.x < posicao_alvo_x:
             return Direcao.LESTE
 
-        if robo.x > self.posicao_alvo_x:
+        if robo.x > posicao_alvo_x:
             return Direcao.OESTE    
 
-        if robo.y < self.posicao_alvo_y:
+        if robo.y < posicao_alvo_y:
             return Direcao.NORTE
 
         return Direcao.SUL

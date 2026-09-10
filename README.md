@@ -37,4 +37,4 @@ OBS : Estou supondo que basta adicionar o item coletado via sucção em bandeja 
 
 ESTRATÉGIAS
 Para as estrategias funcionarem, decidi que elas precisam receber, por padrão, a localização que devem alcançar.
-Rota direta : Vai direto até uma pratileira (coordenada).
+Rota direta : Vai direto até uma pratileira (coordenada). Caso encontre um obstaculo, tenta se esquivar, mas há limite na quantidade de MOVIMENTAÇÕES para evitar loops longos.

@@ -15,6 +15,10 @@
 
 from celular_robo.robo_base import *
 from celular_robo.excecoes import *
+
+from celular_robo.estrategias import *
+from celular_robo.comandos import *
+from celular_robo.modos import *
 #from celular_robo.src.celular_robo.robo_base import Direcao
 #from celular_robo.robo_base import Robo, Coordenada
 
@@ -134,9 +138,33 @@ class RoboColetor(Robo):
         return len(self.bandeja)
 
 
+    def ativarSuccao(self):
+        #Representa a ativação da ferramenta que realiza a sucção para pegar o item.
+        #Neste caso, sempre retorna true, pois é apenas para simoblizar o sistema de sucção. (True == sucção funcionou e pegou o item.)
+        return True
+    
 
+    def guardarItemBandeja(self, codinome_item, quantidade):
+        self.bandeja.inserirItem(codinome_item, quantidade)
+
+
+    def removerItemBandeja(self, codinome_item, quantidade):
+        self.bandeja.removerItem(codinome_item, quantidade)
     
 
 
 
 
+
+
+#STUB TEST
+my_robo = RoboColetor('Robo R.D')
+my_robo.estrategia = RotaDireta()
+my_robo.modo = ModoColetando()
+
+print('------------------------')
+print(my_robo)
+
+comando = CommandColeta('Item AX', (3,4), 5)
+
+print(my_robo)

@@ -8,6 +8,7 @@
 # quantidade), com .executar(robo) e .desfazer(robo) (remove o item da
 # bandeja, decrementa a contagem coletada).
 from celular_robo.comandos_base import Comando
+from celular_robo.robo import RoboColetor
 
 class CommandColeta(Comando):
 
@@ -19,8 +20,27 @@ class CommandColeta(Comando):
         self.quantidade = quantidade
 
 
-    def executar(self, robo):
+    def executar(self, robo : RoboColetor):        
+        try:
+            #Primeiro, vai até a localização
+            resultado_coleta = robo.modo.coletar(robo, self.posicao[0], self.posicao[1])
 
-        #Primeiro, vai até a localização
-        robo.mover()
+            if not resultado_coleta:
+                print(f"Não foi possível realizar a coleta do item {self.codinome} em {self.posicao}")
+                return False
+
+            #Agora, já que estamos na localização correta:
+            quantidade_restante = self.quantidade
+            for i in range(self.quantidade):
+                if robo.ativarSuccao():
+                    robo.guardarItemBandeja(self.codinome, 1) #Neste caso, estou considerando um por vez.
+
+
+            #Comando concluido. Emitir sinal.
+            
+            return True
+        except Exception as e:
+            print(e)
+
+
         

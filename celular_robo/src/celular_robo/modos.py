@@ -9,10 +9,16 @@
 # bandeja completa.
 
 from celular_robo.modos_base import ModoOperacao
+from celular_robo.robo import Robo
 
 
-class ModoBase(ModoOperacao):
-    pass
+class ModoColetando(ModoOperacao):
+#Anda até o local e coleta.
+    def coletar(self, robo : Robo, posicao_alvo_x, posicao_alvo_y):
+       return robo.estrategia.mover(robo, posicao_alvo_x, posicao_alvo_y)
+           
+
+
 
 
 
