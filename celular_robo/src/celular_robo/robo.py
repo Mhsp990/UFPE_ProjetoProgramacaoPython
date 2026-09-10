@@ -80,7 +80,7 @@ class Bandeja:
     def inserirItem(self, codinome, quantidade_inserida = 1) -> bool:
         try:
             self.quantidade = self.quantidade + quantidade_inserida
-            self.items.get[codinome] = self.items.get(codinome, 0) + quantidade_inserida
+            self.items[codinome] = self.items.get(codinome, 0) + quantidade_inserida
             return True
         except Exception as e:
             print(e)
@@ -114,12 +114,14 @@ class RoboColetor(Robo):
 
     def __init__(self, nome, x=0, y=0, direcao=Direcao.LESTE, obstaculos=None, bateria=100, alcance_sensor=1, alcance_radio=5, estrategia=None, modo=None):
         super().__init__(nome, x, y, direcao, obstaculos, bateria, alcance_sensor, alcance_radio, estrategia, modo)
+
         self.bandeja = Bandeja()
 
 
     def __repr__(self):
-        #TODO Irá retornar todos os atributos
-        return super().__repr__()
+        resultado = f"RoboColetor({self.nome!r}), x={self.x}, y={self.y}, direcao={self.direcao}, bateria={self.bateria}"
+        return resultado
+
 
 
     def __str__(self):
@@ -130,3 +132,8 @@ class RoboColetor(Robo):
 
     def __len__(self):
         return len(self.bandeja)
+
+
+
+
+
