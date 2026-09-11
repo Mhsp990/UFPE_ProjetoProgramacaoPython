@@ -84,6 +84,7 @@ def criar_robo_configurado(tipo_nome : str, nome_robo: str,
     robo : Robo = criar_robo_coletor(tipo_nome= tipo_nome, nome= nome_robo, **kwargs)
     robo.estrategia = RotaColeta._registro_rotas[estrategia_nome]()
     robo.obstaculos = set(TIPOS_AREA[area_nome])
+    robo.modo = ModoColetando()
     return robo
     
 
