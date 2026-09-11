@@ -17,12 +17,19 @@ from celular_robo.estrategias import RotaColeta
 from celular_robo.modos import *
 
 
+
+EXCLUI = {
+    "F"
+}
+
+
+
 def criar_robo_coletor(tipo_nome : str , tipo_estrategia : str, tipo_modo: str ,nome : str, **kwargs):
 
     #Registro retorna objetos do tipo classe.
     classe = Robo._registro.get(tipo_nome) 
     estrategia = RotaColeta._registro_rotas.get(tipo_estrategia)
-    modo = ModoBase._registro.get(tipo_modo)
+    modo = ModoColetando._registro.get(tipo_modo)
 
     
     #Validando se os tipos (classes) existem.

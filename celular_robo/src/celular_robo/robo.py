@@ -21,6 +21,8 @@ from celular_robo.comandos import CommandColeta
 from celular_robo.modos import ModoColetando
 #from celular_robo.robo_base import Robo, Coordenada
 
+from celular_robo.persistencia import CarregadorArquivos
+
 
 #DESCRIPTOR
 class QuantidadeValida:
@@ -84,6 +86,7 @@ class Bandeja:
         try:
             self.quantidade = self.quantidade + quantidade_inserida
             self.items[codinome] = self.items.get(codinome, 0) + quantidade_inserida
+            
             return True
         except Exception as e:
             print(e)
@@ -145,10 +148,17 @@ class RoboColetor(Robo):
 
     def guardarItemBandeja(self, codinome_item, quantidade):
         self.bandeja.inserirItem(codinome_item, quantidade)
+        if self.bandeja.quantidade >= self.bandeja.QUANTIDADE_MAXIMA:
+            self.notificar("bandeja_pronta", bandeja = self.bandeja)
 
 
     def removerItemBandeja(self, codinome_item, quantidade):
         self.bandeja.removerItem(codinome_item, quantidade)
+
+
+    def rejeitarBandeja(self):
+        self.modo = ModoColetando()
+        self.notificar("bandeja_rejeitada")
     
 
 
@@ -162,10 +172,22 @@ my_robo.estrategia = RotaDireta()
 my_robo.modo = ModoColetando()
 
 print('------------------------')
+
+#comando = CommandColeta('Item AX', (3,4), 5)
+#comando.executar(my_robo)
+
 print(my_robo)
 
-comando = CommandColeta('Item AX', (3,4), 5)
-comando.executar(my_robo)
 
-print(my_robo)
+carregadorArquivos = CarregadorArquivos()
+lotePedidos = carregadorArquivos.montarPedidosJson('dados/pedidos_json/lote1.json')
+lotePedidos = carregadorArquivos.criarComandos(lotePedidos)
+
+for command in lotePedidos:
+    command.executar(my_robo)
+
 print(f'Minha bandeja tem : {len(my_robo)}')
+
+
+
+print(lotePedidos)

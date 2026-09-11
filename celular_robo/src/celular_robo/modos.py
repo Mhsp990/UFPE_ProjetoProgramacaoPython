@@ -15,16 +15,28 @@ from celular_robo.modos_base import ModoOperacao
 class ModoColetando(ModoOperacao):
 #Anda até o local e coleta.
     def mover():
-        #Explicação : 
+        #Explicação : Pela arquitetura definida, tornaria-se redundante, pois é o que o método de coleta já está fazendo.
+        #Ordem -> Comando --> Modo --> strategy --> robo
         print('NOT IMPLEMENTED')
         pass
 
 
     def coletar(self, robo , posicao_alvo_x, posicao_alvo_y):
        return robo.estrategia.mover(robo, posicao_alvo_x, posicao_alvo_y)
+
+    def __str__(self):
+        return "Modo de operacao : Coletando"
            
 
 
 
 
 
+class ModoAguardandoAnalise(ModoOperacao):
+    def mover(self, robo):
+        print("NÃO PODE MOVER ENQUANTO ESTÁ EM ANALISE.")
+        return False
+
+    def coletar(self, robo):
+        print("Não pode coletar enquanto está em analise!!!!")
+        return False

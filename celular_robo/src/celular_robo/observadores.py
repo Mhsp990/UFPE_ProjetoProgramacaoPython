@@ -9,9 +9,26 @@
 # pedido rejeitado), pensando em trilha de auditoria, não só depuração.
 
 from celular_robo.observadores_base import Observador
+from celular_robo.modos import ModoAguardandoAnalise
+
 
 class EquipeDeTestes(Observador):
     #Observa (reage) as seguintes mudanças:
     #   Quando a bandeja está cheia.
     #       O que faz: Avalia se aprova ou rejeita a bandeja atual.
-    pass
+    def atualizar(self, evento, **dados):
+        if evento == "bandeja_pronta":
+            robo = dados.get('robo')
+
+            robo.modo = ModoAguardandoAnalise()
+            print(f'Bandeja do robo {robo} está pronta para ser analisada. Entrando em modo ANALISE')
+            
+
+
+class RegistroAuditoria(Observador):
+    #Registra todos os eventos, independente de quais sejam.
+    def __init__(self):
+        self.eventos = []
+
+    def atualizar(self, evento, **dados):
+        self.eventos.append((evento, dados))

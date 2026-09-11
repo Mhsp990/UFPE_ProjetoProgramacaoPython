@@ -64,6 +64,11 @@ class RotaDireta(RotaColeta):
             return True
 
 
+
+    def __str__(self):
+        return "Rota Direta"
+
+
         
 
 

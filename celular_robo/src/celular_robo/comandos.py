@@ -20,6 +20,14 @@ class CommandColeta(Comando):
         self.quantidade = quantidade
 
 
+    def __repr__(self):
+        return f"CommandColeta(codinome='{self.codinome}', posicao={self.posicao}, quantidade={self.quantidade})"
+
+    def __str__(self):
+        return f"O comando é : Coletar {self.quantidade} de '{self.codinome}' na posição {self.posicao}"
+
+
+
     def executar(self, robo):        
         try:
             #Primeiro, vai até a localização
