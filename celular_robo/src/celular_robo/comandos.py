@@ -50,5 +50,7 @@ class CommandColeta(Comando):
         except Exception as e:
             print(e)
 
-
+    def desfazer(self, robo):
+        #Neste caso, o desfazer apenas remove o item da bandeja.
+        robo.removerItemBandeja(self.codinome, self.quantidade)
         

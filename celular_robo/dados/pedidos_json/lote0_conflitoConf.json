@@ -4,7 +4,7 @@
     {"codinome": "Projeto Aurora", "quantidade": 2, "posicao": [3, 4],
      "fragil": false, "urgente": true},
     {"codinome": "Projeto Vesper", "quantidade": 1, "posicao": [7, 2],
-     "fragil": true, "urgente": false},
+     "fragil": true, "urgente": true},
     {"codinome": "Projeto Charlies", "quantidade": 4, "posicao": [7, 2],
      "fragil": false, "urgente": false}
   ]
