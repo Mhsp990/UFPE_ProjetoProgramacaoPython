@@ -16,9 +16,11 @@ from celular_robo.robo import Robo
 from celular_robo.estrategias import RotaColeta
 from celular_robo.modos import *
 
+from celular_robo.excecoes import *
 
-class ErroConfiguracoesRobo(Exception):
-    pass
+
+# class ErroConfiguracoesRobo(Exception):
+#     pass
 
 
 
@@ -53,26 +55,27 @@ EXCLUDES = {
 def validar_configuracao(tipo_nome : str, estrategia_nome : str, area_nome : str):
     if tipo_nome not in Robo._registro:
         disponiveis = ", ".join(sorted(Robo._registro))
-        raise ErroConfiguracoesRobo(f"tipo desconhecido: {tipo_nome!r}. Disponíveis: {disponiveis}")
+        raise ConfiguracaoInvalida(f"tipo desconhecido: {tipo_nome!r}. Disponíveis: {disponiveis}")
 
     if estrategia_nome not in ESTRATEGIAS_VALIDAS:
         disponiveis = ", ".join(sorted(RotaColeta._registro_rotas))
-        raise ErroConfiguracoesRobo(f"tipo desconhecido: {estrategia_nome!r}. Disponíveis: {disponiveis}")
+        raise ConfiguracaoInvalida(f"tipo desconhecido: {estrategia_nome!r}. Disponíveis: {disponiveis}")
 
     if area_nome not in AREAS_VALIDAS:
-        raise ErroConfiguracoesRobo(f"Tipo de área desconhecido: {area_nome!r}")
+        raise ConfiguracaoInvalida(f"Tipo de área desconhecido: {area_nome!r}")
 
 
     #Agora, validar se não há conflitos de configurações.
     if estrategia_nome in EXCLUDES.get(area_nome,set()):
-        raise ErroConfiguracoesRobo(f"A estrategia {estrategia_nome} não pode ser usada para areas {area_nome}")
+        raise ConfiguracaoIncompativel(f"A estrategia {estrategia_nome} é incompatível com area {area_nome}")
+    
 
     
 def criar_robo_coletor(tipo_nome: str, nome: str, **kwargs):
     classe = Robo._registro.get(tipo_nome)
     if classe is None:
         disponiveis = ", ".join(sorted(Robo._registro))
-        raise ErroConfiguracoesRobo(f"tipo desconhecido: {tipo_nome!r}. Disponíveis: {disponiveis}")
+        raise ConfiguracaoInvalida(f"tipo desconhecido: {tipo_nome!r}. Disponíveis: {disponiveis}")
     return classe(nome, **kwargs)
 
 

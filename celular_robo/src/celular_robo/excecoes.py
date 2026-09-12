@@ -11,6 +11,12 @@ class ConfiguracaoInvalida(ErroColeta):
     #Chamado quando a configuração do robo está incorreta. (Usado na LPS)
     pass
 
+
+class ConfiguracaoIncompativel(ErroColeta):
+    #Utilizada quando as configurações escolhidas para o robo são existentes, mas há incompatibilidades.
+    pass
+
+
 class PedidoInvalido(ErroColeta):
     #Ocorre quando o pedido é invalido. Exemplos:
     #   Codinome de lote invalido;
