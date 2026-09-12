@@ -80,6 +80,14 @@ class Bandeja:
         self.items = {} #Contem todos os items existentes na bandeja.
 
 
+    def __str__(self):
+        if not self.items:
+            return "Bandeja vazia."
+        
+        itens_formatados = [f"{codinome}: {qtd}" for codinome, qtd in self.items.items()]
+        return f"Itens na Bandeja ({self.quantidade}): " + ", ".join(itens_formatados)
+
+
     def __len__(self):
         return self.quantidade #
 
@@ -162,9 +170,17 @@ class RoboColetor(Robo):
         self.bandeja.removerItem(codinome_item, quantidade)
 
 
+    def aprovarBandeja(self):
+        self.notificar("bandeja_aprovada")
+        self.bandeja.items.clear()
+        self.bandeja.quantidade = 0
+        self.modo = ModoColetando()
+
+
     def rejeitarBandeja(self):
         self.modo = ModoColetando()
-        self.notificar("bandeja_rejeitada")
+        self.notificar("bandeja_rejeitada", bandeja = self.bandeja)
+
     
 
 
