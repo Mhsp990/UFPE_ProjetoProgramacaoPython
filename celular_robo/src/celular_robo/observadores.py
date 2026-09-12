@@ -32,3 +32,16 @@ class RegistroAuditoria(Observador):
 
     def atualizar(self, evento, **dados):
         self.eventos.append((evento, dados))
+
+
+    def imprimir_relatório(self):
+        print("----- Imprinindo LOG de auditoria -----")
+
+        for index, (evento, dados) in  enumerate(self.eventos):
+            detalhes = ", ".join(f"{k}={v}" for k, v in dados.items())
+            print(f'Evento {index} -->  {evento}')
+            print(f'Detalhes do evento : {detalhes}') 
+        print("---------------------------\n")
+
+    def tamanho_relatorio(self):
+        return len(self.eventos)

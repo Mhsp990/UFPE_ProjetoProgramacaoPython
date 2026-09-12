@@ -23,6 +23,7 @@ from celular_robo.modos import ModoColetando
 
 from celular_robo.persistencia import CarregadorArquivos
 from celular_robo.fabrica import *
+from celular_robo.observadores import RegistroAuditoria
 
 
 #DESCRIPTOR
@@ -87,7 +88,6 @@ class Bandeja:
         try:
             self.quantidade = self.quantidade + quantidade_inserida
             self.items[codinome] = self.items.get(codinome, 0) + quantidade_inserida
-            
             return True
         except Exception as e:
             print(e)
@@ -151,6 +151,11 @@ class RoboColetor(Robo):
         self.bandeja.inserirItem(codinome_item, quantidade)
         if self.bandeja.quantidade >= self.bandeja.QUANTIDADE_MAXIMA:
             self.notificar("bandeja_pronta", bandeja = self.bandeja)
+            return True
+
+        print("NOTIFICANDO COLETA")
+        self.notificar("item_coletado", codinome_item = codinome_item, quantidade = quantidade)
+        
 
 
     def removerItemBandeja(self, codinome_item, quantidade):
@@ -171,6 +176,11 @@ class RoboColetor(Robo):
 my_robo = RoboColetor('Robo R.D')
 my_robo.estrategia = RotaDireta()
 my_robo.modo = ModoColetando()
+
+
+
+
+
 
 print('Testando robo criado manualmente')
 
@@ -200,14 +210,18 @@ try:
     lote_itens = carregadorArquivos.montarPedidosJson('dados/pedidos_json/lote1.json')
     lote_pedidos = carregadorArquivos.criarComandos(lote_itens)
 
+    
+    observador_registro = RegistroAuditoria()
+    robo_fabricado.adicionar_observador(observador_registro)
+
     for cmd in lote_pedidos:
         cmd.executar(robo_fabricado)
 
     print(f"Quantidade de items na bandeja de {robo_fabricado.nome}: {len(my_robo)}")
+    print("Requisitando informações do log")
+    observador_registro.imprimir_relatório()
 
 
-    
-        
 
 except Exception as e:
     print("---------------------------------------")
