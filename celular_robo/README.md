@@ -59,7 +59,21 @@ Sobre lidar com fragil e urgente, eu pensei em duas soluções:
 Optei pela opção 2, pois simplifica o código, já que torna-se desnecessário armazenar o tipo de área escolhida para comparar e, também, evita outras checagens extras para evitar que uma estratégia indesejada seja adotada.
 Ademais, exigira algumas mudanças na arquitetura para que fique mais "eficiente". Por exemplo: Consideraria que existe N configurações a serem utilizadas e, ao receber um pedido (um pedido do lote de pedidos), o algoritmo verificaria qual configuração é adequada.
 
+ALÉM DISSO, para lote de pedidos que existem pedidos válidos e invalidos, a decisão tomada foi de que os pedidos inválidos são ignorados. Isso acontece, basicamente, da seguinte forma:
+Robo recebe comando para executar ----> Valida usando o metodo em fabrica.py ---> decide o que fazer.
 
+
+
+Decisão 2
+Sobre a persistência, usei o exemplo fornecido como base. Portanto, ao ler um arquivo json seguindo este padrão, o algoritmo "converte" as informações deste json em uma lista de objetos da classe CommandColeta.
+Um tratamento similar ocorre para a persistencia de configuração de robo.
+
+
+
+
+Decisão 3
+Ao observar o fluxo do algoritmo, perceber-a que eu criei um metodo "coletar" ao invés de utilizar o método "mover".
+Explicação : Achei mais intuitivo usar o método chamado de coletar. Como o fluxo do algoritmo do robo coletor difere de sua classe base, já que comando ---> modo ---> estrategia ---> avançar, não há problema. Entretanto, precisarei fazer uma pequena refatoração, pois desta forma, como o método mover não é utilizado, a bateria não é atualizada via observer, mas não deve ser um problema, pois não tinha a intenção de adicionar os modos (estados) além dos necessários e nem adicionar o observador de bateria na lista de observadores.
 
 
 
@@ -115,3 +129,13 @@ Tudo relacionado a LPS, tal como o algoritmo para criar e as regras (exceções,
 
 TESTES
 Todos os arquivos de testes estarão na pasta tests.
+Importante : Necessitei editar algumas strings presentes no teste para condizer com as strings esperadas como entrada.
+Por exemplo : "direta" == "RotaDireta" para criação do robo, etc.
+
+
+PERSISTENCIA
+Os arquivos de persistencia estão na pasta dados, separado em suas devidas pastas por categoria.
+O pós fixo do nome do arquivo serve como sugestão do que esperar de seu conteúdo e reação do algoritmo.
+
+O fluxo para o uso da persistência:
+Usuario interage com cli ---> Algoritmo recebe um caminho para o json ----> constroi o command e o robo escolhido ---> Executa.
