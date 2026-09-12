@@ -42,9 +42,9 @@ class CommandColeta(Comando):
             for i in range(self.quantidade):
                 if robo.ativarSuccao():
                     robo.guardarItemBandeja(self.codinome, 1) #Neste caso, estou considerando um por vez.
+            
 
-
-            #Comando concluido. Emitir sinal.
+            
             
             return True
         except Exception as e:

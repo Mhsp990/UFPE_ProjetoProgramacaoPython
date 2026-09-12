@@ -20,8 +20,8 @@ class ErroObjetosNaoInicializados(ErroInput):
 
 #Mapeamento de prompts
 CONFIGS_ROBOS = {
-    0: "dados/robos_json/coletor_padrao.json",
-    1: "dados/robos_json/coletor_quarentena.json",
+    0: "dados/robos_json/coletor0_padrao.json",
+    1: "dados/robos_json/coletor1_quarentena.json",
 }
 
 LOTES_PEDIDOS = {
@@ -147,8 +147,8 @@ class CliApp:
             print("\n[!] Nenhum comando restante na fila.")
             return
 
-        for cmd in self.comandos_pendentes:
-            cmd.executar(self.robo_atual)
+        sucessos, total = self.robo_atual.processarComandosColeta(self.comandos_pendentes)
+        print(f"O robo conseguiu processar {sucessos} dos {total} comandos de coleta.")
 
 
 
@@ -201,6 +201,20 @@ class CliApp:
 
 
 
+    def exibir_menu_principal(self):
+        print("\n===============================================")
+        print("===== Menu Principal =====")
+        print("1. Criar robo")
+        print("2. Carregar um lote de pedidos")
+        print("3. Listar todos os pedidos")
+        print("4. Processar lote de pedidos")
+        print("5. Verificar conteúdo da bandeja")
+        print("6. Analisar bandeja")
+        print("7. Verificar LOG do robo")
+        print("8. Verificar modo de atuação atual do robo")
+        print("0. Sair")
+        print("===============================================")
+
 
     def iniciar_aplicacao(self):
         print("Inicializando o Robo handler 3000. Por favor, aguarde.")
@@ -211,28 +225,31 @@ class CliApp:
             self.exibir_menu_principal()
             opcao = input("Escolha uma opcao: ").strip()
 
-            if opcao == "1 : Criar robo":
+            if opcao == "1":
                 self.menu_criar_robo()
-            elif opcao == "2 : Carregar um lote de pedidos":
+            elif opcao == "2":
                 self.menu_carregar_pedidos()
-            elif opcao == "3 : Listar todos os pedidos":
+            elif opcao == "3":
                 self.listar_pedidos()
-            elif opcao == "4 : Processar lote de pedidos":
+            elif opcao == "4":
                 self.processar_lote()
-            elif opcao == "5 : Verificar conteúdo da bandeja":
+            elif opcao == "5":
                 self.ver_estado_bandeja()
-            elif opcao == "6 : Analisar bandeja":
-                self.aprovar_bandeja()
-            elif opcao == "7 : Verificar LOG do robo":
+            elif opcao == "6":
+                self.analisar_bandeja()
+            elif opcao == "7":
                 self.menu_exibir_log()
+            elif opcao == "8":
+                if self.robo_atual is not None:
+                    print(self.robo_atual.modo)
+                else:
+                    print("Não há robo ativo.")
             elif opcao == "0":
                 print("\nEncerrando o programa.")
                 sys.exit(0)
             else:
                 print("Opcao invalida. Tente novamente.")
-        
-        
-        
 
-        
 
+cli = CliApp()
+cli.iniciar_aplicacao()

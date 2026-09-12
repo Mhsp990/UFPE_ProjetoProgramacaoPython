@@ -161,7 +161,7 @@ class RoboColetor(Robo):
             self.notificar("bandeja_pronta", bandeja = self.bandeja)
             return True
 
-        print("NOTIFICANDO COLETA")
+        #print("NOTIFICANDO COLETA")
         self.notificar("item_coletado", codinome_item = codinome_item, quantidade = quantidade)
         
 
@@ -180,6 +180,24 @@ class RoboColetor(Robo):
     def rejeitarBandeja(self):
         self.modo = ModoColetando()
         self.notificar("bandeja_rejeitada", bandeja = self.bandeja)
+
+
+    def processarComandosColeta(self, lista_comandos : list):
+        comandos = []
+        comandos = lista_comandos[:]
+
+        qtd_comandos = len(lista_comandos)
+        qtd_sucesso = 0
+
+        for comando in comandos:
+            if comando.executar(self):
+                qtd_sucesso += 1
+
+        if qtd_sucesso >1:
+            self.notificar("bandeja_pronta", bandeja = self.bandeja)
+
+        return (qtd_sucesso, qtd_comandos)
+        
 
     
 

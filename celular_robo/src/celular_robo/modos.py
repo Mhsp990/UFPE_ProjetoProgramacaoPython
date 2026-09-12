@@ -40,3 +40,6 @@ class ModoAguardandoAnalise(ModoOperacao):
     def coletar(self, robo):
         print("Não pode coletar enquanto está em analise!!!!")
         return False
+
+    def __str__(self):
+        return "Modo de operacao : Aguardando analise"

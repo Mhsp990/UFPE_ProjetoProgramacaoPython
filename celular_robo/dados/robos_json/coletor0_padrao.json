@@ -1,0 +1,6 @@
+{
+  "tipo_nome": "RoboColetor",
+  "nome": "Coletor-padrao",
+  "estrategia_nome": "RotaDireta",
+  "area_nome": "centro_padrao"
+}
