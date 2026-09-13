@@ -8,7 +8,6 @@
 # quantidade), com .executar(robo) e .desfazer(robo) (remove o item da
 # bandeja, decrementa a contagem coletada).
 from celular_robo.comandos_base import Comando
-#from celular_robo.robo import RoboColetor
 from celular_robo.excecoes import PedidoInvalido
 
 class CommandColeta(Comando):

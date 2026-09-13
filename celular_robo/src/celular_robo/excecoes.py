@@ -23,3 +23,8 @@ class PedidoInvalido(ErroColeta):
     #   Quantidade pedida maior que a existente;
     #   Valor pedido invalido : Itens com quantidade negativas ou pedidos vazios.
     pass
+
+
+class BandejaOverflow(ErroColeta):
+    #Ocorre quando a bandeja alcançar seu valor máximo.
+    pass
