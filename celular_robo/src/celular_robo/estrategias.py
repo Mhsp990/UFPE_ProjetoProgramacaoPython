@@ -34,8 +34,22 @@ class RotaColeta(ABC):
 
 
 class RotaDireta(RotaColeta):
+    """Implementa uma estratégia de navegação direta para robôs de coleta.
+    """
+
+
     #Vai direto até cada pratileira.
     def mover(self, robo, posicao_alvo_x, posicao_alvo_y):
+        """Move o robô em direção às coordenadas informadas até atingir o alvo. Há um limite de passos.
+        Parâmetros:
+            robo (Robo): Instância do robô que executará os movimentos.
+            posicao_alvo_x (int): Coordenada X do destino final.
+            posicao_alvo_y (int): Coordenada Y do destino final.
+
+        Retorna:
+            bool: True se o robô alcançar a posição alvo dentro do limite de movimentações, 
+            False caso contrário.
+        """
 
         alvo = (posicao_alvo_x, posicao_alvo_y)
 
@@ -100,6 +114,11 @@ class RotaDireta(RotaColeta):
 
 
 class RotaComDuplaConferencia(RotaDireta):
+    """Implementa uma estratégia de navegação com verificação de integridade posicional.
+
+    Extende a classe RotaDireta adicionando uma etapa de validação que confirma
+    se o robô realmente atingiu as coordenadas esperadas após o término do movimento.
+    """
 
     #Como a checagem da bandeja foi implementada de forma que não é responsabilidade da estratégia, fiz com que essa
     #estrategia duplaConferencia fosse responsável apenas por verificar duas vezes se a posição atual realmente é a desejada.

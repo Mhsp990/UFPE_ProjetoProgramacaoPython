@@ -26,12 +26,28 @@ from celular_robo.modos import ModoColetando
 
 #DESCRIPTOR
 class QuantidadeValida:
+    """
+    Descriptor para validação de quantidade em atributos de classe.
+
+    Garante que o valor atribuído seja um número não negativo e que não 
+    exceda o limite máximo especificado.
+
+    Parâmetros:
+        max (int/float, opcional): Valor máximo permitido. Padrão é 100.
+    """
 
     def __init__(self, max = 100): #Valor máximo de 100 por padrão.
+        """Inicializa o descriptor definindo o limite máximo permitido.
+
+        Parâmetros:
+            max (int/float, opcional): Valor máximo aceito. Padrão é 100.
+        """
         self.max = max
+
 
     def __set_name__(self, owner, name):
         self.nome = "_" + name
+
 
     def __get__(self, instance, owner):
         if instance is None:
@@ -51,6 +67,16 @@ class QuantidadeValida:
 #Bandeja
 #Ao utilizar como classe ao invés de uma simples lista, me permitirá guardar mais informações caso necessário.
 class Bandeja:
+    """Gerencia os items coletados em uma bandeja.
+    Controla o armazenamento e a quantidade total de itens, garantindo 
+    que o limite máximo suportado não seja ultrapassado através do descriptor.
+
+    Atributos:
+        QUANTIDADE_MAXIMA (int): Limite máximo de itens suportados (padrão: 20).
+        quantidade (int): Quantidade total de itens atuais na bandeja.
+        items (dict): Dicionário mapeando o codinome do item à sua quantidade.
+    """
+
     QUANTIDADE_MAXIMA = 20 # Para este exemplo, a bandeja so podera conter 20 items simultaneamente.
     quantidade = QuantidadeValida(QUANTIDADE_MAXIMA)
 
@@ -72,6 +98,13 @@ class Bandeja:
 
 
     def inserirItem(self, codinome, quantidade_inserida = 1) -> bool:
+        """Adiciona uma determinada quantidade de um item à bandeja.
+        Parâmetros:
+            codinome (str): Identificador do item a ser inserido.
+            quantidade_inserida (int, opcional): Quantidade a adicionar. Padrão é 1.
+        Retorna:
+            bool: True se o item foi inserido com sucesso, False caso ocorra um erro de validação.
+        """
         try:
             self.quantidade = self.quantidade + quantidade_inserida
             self.items[codinome] = self.items.get(codinome, 0) + quantidade_inserida
@@ -83,6 +116,15 @@ class Bandeja:
 
 
     def removerItem(self, codinome, quantidade_removida = 1) -> bool:
+        """Remove uma determinada quantidade de um item existente na bandeja.
+
+        Parâmetros:
+            codinome (str): Identificador do item a ser removido.
+            quantidade_removida (int, opcional): Quantidade a remover. Padrão é 1.
+        Retorna:
+            bool: True se a remoção for bem-sucedida, False se o item não existir ou se a operação falhar.
+        """
+
         if codinome not in self.items:
             print("Não é possível remover o item, pois ele não existe na bandeja.")
             return False
@@ -95,17 +137,15 @@ class Bandeja:
             print(e)
             return False
             
-        
-
-
-
-
-
-
 
 
 
 class RoboColetor(Robo):
+    """Representa um robô especializado na coleta e transporte de itens.
+    Atributos: Além dos herdados.
+        bandeja (Bandeja): Instância responsável por armazenar e controlar 
+            os itens coletados pelo robô.
+    """
 
     def __init__(self, nome, x=0, y=0, direcao=Direcao.LESTE, obstaculos=None, bateria=100, alcance_sensor=1, alcance_radio=5, estrategia=None, modo=None):
         super().__init__(nome, x, y, direcao, obstaculos, bateria, alcance_sensor, alcance_radio, estrategia, modo)
@@ -130,12 +170,22 @@ class RoboColetor(Robo):
 
 
     def ativarSuccao(self):
+        """Simula a ativação do sistema de sucção para captura de itens. Sempre retorna true, para este projeto.
+
+        Retorna:
+            bool: True indicando que a sucção foi ativada e o item foi coletado com sucesso. False caso o contrário
+        """
         #Representa a ativação da ferramenta que realiza a sucção para pegar o item.
         #Neste caso, sempre retorna true, pois é apenas para simoblizar o sistema de sucção. (True == sucção funcionou e pegou o item.)
         return True
     
 
     def guardarItemBandeja(self, codinome_item, quantidade):
+        """Armazena um item na bandeja e emite um sinal avisando sobre a coleta.
+        Parâmetros:
+            codinome_item (str): Identificador do item a ser guardado.
+            quantidade (int): Quantidade do item a ser adicionada.
+        """
         self.bandeja.inserirItem(codinome_item, quantidade)
         if self.bandeja.quantidade >= self.bandeja.QUANTIDADE_MAXIMA:
             self.notificar("bandeja_pronta", bandeja = self.bandeja)
@@ -147,10 +197,18 @@ class RoboColetor(Robo):
 
 
     def removerItemBandeja(self, codinome_item, quantidade):
+        """Retira uma determinada quantidade de um item da bandeja do robô. Normalmente executado ao usar comando.desfazer.
+        Parâmetros:
+            codinome_item (str): Identificador do item a ser removido.
+            quantidade (int): Quantidade do item a ser retirada.
+        """
         self.bandeja.removerItem(codinome_item, quantidade)
 
 
     def aprovarBandeja(self):
+        """Aprova o conteúdo da bandeja, limpa os itens guardados e reinicia o modo de coleta.
+        Envia o sinal de "bandeja_aprovada" e, depois, volta para o modo coletando.
+        """
         self.notificar("bandeja_aprovada")
         self.bandeja.items.clear()
         self.bandeja.quantidade = 0
@@ -158,11 +216,25 @@ class RoboColetor(Robo):
 
 
     def rejeitarBandeja(self):
+        """Registra a rejeição da bandeja e restaura o estado de coleta do robô.
+
+        Altera o modo do robô de volta para ModoColetando e envia uma notificação 
+        informando que a bandeja atual foi rejeitada, mantendo seus dados para análise.
+        """
         self.modo = ModoColetando()
         self.notificar("bandeja_rejeitada", bandeja = self.bandeja)
 
 
     def processarComandosColeta(self, lista_comandos: list):
+        """Valida e executa os comandos de coleta recebidos pelo robo.
+        Caso existam comandos invalidos com a configuração do robo, estes são ignorados.
+        Parâmetros:
+            lista_comandos (list): Lista de objetos do tipo CommandColeta a serem validados e executados.
+
+        Retorna:
+            tuple: Tupla no formato (qtd_sucesso, qtd_total_cmds), contendo a quantidade 
+            de comandos executados com sucesso e o total de comandos recebidos.
+        """
 
         from celular_robo.fabrica import validar_compatibilidade_robo_pedido
         #MOTIVO : Estava dando um conflito com pytest. Ao rodar via CLI, funcionava, mas algo ao fazer via pytest dava erro.
@@ -185,12 +257,31 @@ class RoboColetor(Robo):
         qtd_sucesso = 0
         for comando in comandos_validos:
             if comando.executar(self):
+                self._historico_comandos.append(comando)
                 qtd_sucesso += 1
 
         if qtd_sucesso > 1:
             self.notificar("bandeja_pronta", bandeja=self.bandeja)
 
         return (qtd_sucesso, qtd_total_cmds)
+
+
+
+    def desfazerUltimoComando(self):
+            """Desfaz a execução do último comando armazenado no histórico do robô.
+            Para isto, ele vai no ultimo comando e usa "desfazer".
+
+            Retorna:
+                bool: True se o último comando foi desfeito com sucesso, 
+                False se não houver comandos no histórico para desfazer.
+            """
+            if not self._historico_comandos:
+                print(" Não há comandos no histórico para desfazer.")
+                return False
+
+            ultimo_comando = self._historico_comandos.pop()
+            ultimo_comando.desfazer(self)
+            return True
         
 
     
