@@ -20,7 +20,7 @@ from celular_robo.modos import ModoColetando
 #from celular_robo.robo_base import Robo, Coordenada
 
 
-from celular_robo.fabrica import *
+#from celular_robo.fabrica import *
 
 
 
@@ -46,24 +46,6 @@ class QuantidadeValida:
         instance.__dict__[self.nome] = valor
 
 
-#Itens
-#Será uma classe que presentará um item que pode ser pedido.
-# class ItemLotePedido():
-#     quantidade = QuantidadeValida() 
-
-#     def __init__(self, codinome, quantidade, posicao_x, posicao_y, fragil = False, urgente = False):
-#         self.codinome = codinome
-
-#         self.quantidade = quantidade 
-
-#         self._posicao_x = posicao_x 
-#         self._posicao_y = posicao_y 
-#         self.fragil = fragil
-#         self.urgente = urgente
-
-#     @property
-#     def posicao(self):
-#         return (self._posicao_x, self._posicao_y)
 
 
 #Bandeja
@@ -180,6 +162,10 @@ class RoboColetor(Robo):
 
 
     def processarComandosColeta(self, lista_comandos: list):
+
+        from celular_robo.fabrica import validar_compatibilidade_robo_pedido
+        #MOTIVO : Estava dando um conflito com pytest. Ao rodar via CLI, funcionava, mas algo ao fazer via pytest dava erro.
+
         comandos_validos = []
         comandos_invalidos = []
 

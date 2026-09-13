@@ -11,6 +11,12 @@ from abc import ABC, abstractmethod
 from celular_robo.robo_base import Direcao
 
 
+#OBS: Pela forma que fiz a arquitetura, estrategia é responsável apenas por decidir COMO chegar no local alvo.
+#Portanto, o comando coletar usa a estratégia para se locomover até lá e, depois ele mesmo coleta ativando o robo e adiciona na bandeja.
+#Portanto, na dupla conferência, não há uma revalidação de item antes de despejar na bandeja.
+
+
+
 class RotaColeta(ABC):
     # posicao_alvo_x = 0
     # posicao_alvo_y = 0
@@ -93,9 +99,29 @@ class RotaDireta(RotaColeta):
 
 
 
-class RotaComDuplaConferencia(RotaColeta):
-    #Por enquanto, nao está fazendo nada
-    #TODO
-    def mover(self):
-        pass
-    
+class RotaComDuplaConferencia(RotaDireta):
+
+    #Como a checagem da bandeja foi implementada de forma que não é responsabilidade da estratégia, fiz com que essa
+    #estrategia duplaConferencia fosse responsável apenas por verificar duas vezes se a posição atual realmente é a desejada.
+    #Ademais, devido a arquitetura escolhida, a validação dos items é feita ANTES da execução de cada comando,
+    #no qual comandos incompativeis são ignorados. (Não há troca de estratégia, conforme explicado no readme.)
+        
+
+    def mover(self, robo, posicao_alvo_x: int, posicao_alvo_y: int) -> bool:
+
+        chegou = super().mover(robo, posicao_alvo_x, posicao_alvo_y)
+
+        if not chegou:
+            return False
+
+        posicao_esperada = (posicao_alvo_x, posicao_alvo_y)
+        posicao_real = (robo.x, robo.y)
+
+        if posicao_real != posicao_esperada:
+            print(f"[Dupla Conferência Falhou]: Esperado {posicao_esperada}, mas robô está em {posicao_real}")
+            return False
+
+        return True
+
+    def __str__(self):
+        return "Rota com Dupla Conferência"
