@@ -20,7 +20,7 @@ class CarregadorArquivos():
 
 
     def criarComandos(self, lista_lotes):
-        # Converte uma lista de lotes em uma lista de comandos.
+        #Metodo utilizado para gerar os comandos a partir de uma lista de pedidos.
         comandos = []
         for item in lista_lotes:
             comando = CommandColeta(

@@ -4,3 +4,8 @@
 # registros de Seção 2.2, não digitados à mão), REQUER/EXCLUI (4 dimensões: tipo,
 # estratégia, área, urgência) e validar_configuracao levantando
 # ConfiguracaoInvalida antes de qualquer robô ser instanciado.
+
+
+#OBS:
+#Esta parte de modelos de features já está implementada no arquivo fabrica.py
+#Motivo : Não percebi que ficariam em arquivos diferentes. Mas pensando agora, faz sentido.
