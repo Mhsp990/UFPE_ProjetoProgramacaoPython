@@ -14,7 +14,7 @@ CASOS_CONFIG_VALIDAS = [
     ("RoboColetor", "Coletor dupla conferencia em area aberta", "RotaComDuplaConferencia", "centro_padrao"),
 ]
 
-# Casos inválidos: espera-se que levantar a exceção ConfiguracaoInvalida
+# Casos inválidos: espera-se a exceção ConfiguracaoInvalida
 CASOS_CONFIG_INVALIDAS = [
     ("RoboColetor", "Coletor incompativel", "RotaDireta", "area_quarentena"),
     ("NaoExiste", "Coletor-padrao", "RotaDireta", "centro_padrao"),

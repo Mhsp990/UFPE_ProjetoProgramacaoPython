@@ -66,7 +66,7 @@ class CliApp:
                 return False
 
         #Caso o robo não exista OU o usuario queira sobrescrever:
-        print("\n--- Insira o inteiro que corresponde ao arquivo de configuração do robo a ser criado ---")
+        print(" Insira o inteiro que corresponde ao arquivo de configuração do robo a ser criado")
         for chave, caminho in CONFIGS_ROBOS.items():
             print(f" [{chave}] -> {caminho}")
 
