@@ -1,0 +1,6 @@
+{
+  "tipo_nome": "RoboColetor",
+  "nome": "Coletor dupla conferencia em area aberta",
+  "estrategia_nome": "RotaComDuplaConferencia",
+  "area_nome": "centro_padrao"
+}

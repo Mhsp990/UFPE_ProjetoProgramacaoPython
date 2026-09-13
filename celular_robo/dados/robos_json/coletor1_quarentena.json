@@ -1,0 +1,6 @@
+{
+  "tipo_nome": "RoboColetor",
+  "nome": "Coletor dupla conferencia",
+  "estrategia_nome": "RotaComDuplaConferencia",
+  "area_nome": "area_quarentena"
+}

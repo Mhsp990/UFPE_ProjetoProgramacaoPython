@@ -94,5 +94,8 @@ class RotaDireta(RotaColeta):
 
 
 class RotaComDuplaConferencia(RotaColeta):
-    #
-    pass
+    #Por enquanto, nao está fazendo nada
+    #TODO
+    def mover(self):
+        pass
+    

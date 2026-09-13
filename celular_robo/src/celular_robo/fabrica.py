@@ -19,10 +19,6 @@ from celular_robo.modos import *
 from celular_robo.excecoes import *
 
 
-# class ErroConfiguracoesRobo(Exception):
-#     pass
-
-
 
 
 def criar_robo(tipo_nome, nome, **kwargs):

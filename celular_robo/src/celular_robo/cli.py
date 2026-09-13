@@ -22,6 +22,8 @@ class ErroObjetosNaoInicializados(ErroInput):
 CONFIGS_ROBOS = {
     0: "dados/robos_json/coletor0_padrao.json",
     1: "dados/robos_json/coletor1_quarentena.json",
+    2: "dados/robos_json/coletor2_quarentena.json",
+    3: "dados/robos_json/coletor3_incompativel.json"
 }
 
 LOTES_PEDIDOS = {
@@ -50,7 +52,7 @@ class CliApp:
             if resposta != 's':
                 print("Operação de criação do robo cancelada.")
                 return False
-            elif resposta != 'n':
+            elif resposta != 'n' and resposta != 's':
                 print("Input de cli invalido. Cancelando operação...")
                 return False
 
@@ -202,8 +204,11 @@ class CliApp:
 
 
     def exibir_menu_principal(self):
+        nome_robo = self.robo_atual.nome if self.robo_atual is not None else "Nenhum"
+
         print("\n===============================================")
         print("===== Menu Principal =====")
+        print(f"Robo atual : {nome_robo} ")
         print("1. Criar robo")
         print("2. Carregar um lote de pedidos")
         print("3. Listar todos os pedidos")
