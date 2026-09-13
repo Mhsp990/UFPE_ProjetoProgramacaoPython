@@ -2,7 +2,7 @@
 
 ## Setup
 
-Para poder rodar o TESTE deste projeto, é necessário ter o pytest. Para este fim, foi utilizado o venv + instalação do pytest.
+Para poder rodar o TESTE deste projeto, é necessário ter o pytest. Para este fim, foi utilizado o venv + instalação do pytest via pip.
 
 
 

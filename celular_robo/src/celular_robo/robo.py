@@ -16,14 +16,12 @@
 from celular_robo.robo_base import Robo, Direcao
 from celular_robo.excecoes import PedidoInvalido
 
-from celular_robo.estrategias import RotaDireta
-from celular_robo.comandos import CommandColeta
 from celular_robo.modos import ModoColetando
 #from celular_robo.robo_base import Robo, Coordenada
 
-from celular_robo.persistencia import CarregadorArquivos
+
 from celular_robo.fabrica import *
-from celular_robo.observadores import RegistroAuditoria
+
 
 
 #DESCRIPTOR
@@ -181,21 +179,31 @@ class RoboColetor(Robo):
         self.notificar("bandeja_rejeitada", bandeja = self.bandeja)
 
 
-    def processarComandosColeta(self, lista_comandos : list):
-        comandos = []
-        comandos = lista_comandos[:]
+    def processarComandosColeta(self, lista_comandos: list):
+        comandos_validos = []
+        comandos_invalidos = []
 
-        qtd_comandos = len(lista_comandos)
+        for comando in lista_comandos:
+            if validar_compatibilidade_robo_pedido(self, comando):
+                comandos_validos.append(comando)
+            else:
+                comandos_invalidos.append(comando)
+
+        qtd_total_cmds = len(lista_comandos)
+        qtd_invalidos = len(comandos_invalidos)
+
+        if qtd_invalidos > 0:
+            print(f"[Aviso] Dos {qtd_total_cmds} comandos recebidos, {qtd_invalidos} foram ignorados por incompatibilidade/invalidação.")
+
         qtd_sucesso = 0
-
-        for comando in comandos:
+        for comando in comandos_validos:
             if comando.executar(self):
                 qtd_sucesso += 1
 
-        if qtd_sucesso >1:
-            self.notificar("bandeja_pronta", bandeja = self.bandeja)
+        if qtd_sucesso > 1:
+            self.notificar("bandeja_pronta", bandeja=self.bandeja)
 
-        return (qtd_sucesso, qtd_comandos)
+        return (qtd_sucesso, qtd_total_cmds)
         
 
     

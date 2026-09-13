@@ -46,6 +46,39 @@ EXCLUDES = {
     "area_quarentena": {"RotaDireta"}
 }
 
+EXCLUDES_PEDIDOS = {
+    "urgente": {"RotaComDuplaConferencia"},
+    "fragil": {"RotaDireta"}
+}
+
+
+
+
+def validar_compatibilidade_robo_pedido(robo, comando_unico):
+    #Verifica se o robo EXISTENTE é compatível com os pedidos que serão executados.
+    #Para isto, recebe apenas UM comando.
+    #Por decisão de arquitetura, executa-se esta validação para cada item do pedido, a fim de verificar quais são possíveis executar.
+    e_fragil = getattr(comando_unico, 'fragil', False)
+    e_urgente = getattr(comando_unico, 'urgente', False)
+
+    if e_fragil and e_urgente:
+        print(f" '{comando_unico.codinome}' possui fragil=True e urgente=True ao mesmo tempo, mas isto é incompatível.")
+        return False
+
+    nome_estrategia = robo.estrategia.__class__.__name__
+
+    if e_urgente and nome_estrategia in EXCLUDES_PEDIDOS["urgente"]:
+        print(f" '{comando_unico.codinome}' é urgente e exige 'RotaDireta', mas o robô está com a estratégia '{nome_estrategia}'.")
+        return False
+
+    if e_fragil and nome_estrategia in EXCLUDES_PEDIDOS["fragil"]:
+        print(f" '{comando_unico.codinome}' é frágil e exige 'RotaComDuplaConferencia', mas o robô está com '{nome_estrategia}'.")
+        return False
+
+    return True
+
+    
+
 
 
 def validar_configuracao(tipo_nome : str, estrategia_nome : str, area_nome : str):
@@ -85,6 +118,7 @@ def criar_robo_configurado(tipo_nome : str, nome_robo: str,
     robo.estrategia = RotaColeta._registro_rotas[estrategia_nome]()
     robo.obstaculos = set(TIPOS_AREA[area_nome])
     robo.modo = ModoColetando()
+    robo.area_nome = area_nome #Necessario para verificar se as configurações atuais são compatíveis com pedidos requisitados.
     return robo
     
 
