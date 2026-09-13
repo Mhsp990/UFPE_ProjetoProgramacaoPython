@@ -2,9 +2,8 @@
 
 ## Setup
 
-Além do que já feito pronto no projeto base, não foi necessário instalar nenhuma dependência além do pytest.
-Além disso, não utilizei bibliotecas externas.
-OBS: Usei o venv + install do pytest.
+Para poder rodar o TESTE deste projeto, é necessário ter o pytest. Para este fim, foi utilizado o venv + instalação do pytest.
+
 
 
 ## Como rodar

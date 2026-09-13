@@ -30,5 +30,5 @@ def test_area_quarentena_exclui_rota_direta():
     with pytest.raises(ConfiguracaoInvalida):
         criar_robo_configurado(
             "RoboColetor", "Coletor-2",
-            estrategia_nome="direta", area_nome="area_quarentena",
+            estrategia_nome="RotaDireta", area_nome="area_quarentena",
         )
