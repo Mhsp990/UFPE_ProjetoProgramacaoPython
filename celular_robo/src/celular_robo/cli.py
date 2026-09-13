@@ -19,16 +19,25 @@ class ErroObjetosNaoInicializados(ErroInput):
     pass
 
 #Mapeamento de prompts
+#Algum dos prompts dão erro. Isso é intencional, pois facilita o teste
+#tanto via pytest, quanto diretamente, caso queira verificar.
 CONFIGS_ROBOS = {
     0: "dados/robos_json/coletor0_padrao.json",
     1: "dados/robos_json/coletor1_quarentena.json",
     2: "dados/robos_json/coletor2_quarentena.json",
-    3: "dados/robos_json/coletor3_incompativel.json"
+    3: "dados/robos_json/coletor3_incompativel.json",
+    4: "dados/robos_json/coletor4_tipoInexistente.json",
+    5: "dados/robos_json/coletor5_estrategiaInexistente.json",
+    6: "dados/robos_json/coletor6_areaInexistente.json",
 }
 
+
 LOTES_PEDIDOS = {
-    0: "dados/pedidos_json/lote0_conflitoConf.json",
-    1: "dados/pedidos_json/lote1.json",
+    0: "dados/pedidos_json/lote0_normal.json",
+    1: "dados/pedidos_json/lote1_fragil.json",
+    2: "dados/pedidos_json/lote2_urgente.json",
+    3: "dados/pedidos_json/lote3_negativo.json",
+    4: "dados/pedidos_json/lote4_conflitoConf.json",
 }
 
 

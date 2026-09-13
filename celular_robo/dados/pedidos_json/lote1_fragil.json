@@ -1,0 +1,9 @@
+{
+  "lote": "Lote de Testes fragil",
+  "itens": [
+    {"codinome": "Projeto Aurora", "quantidade": 5, "posicao": [3, 4],
+     "fragil": false, "urgente": false},
+    {"codinome": "Projeto Vesper", "quantidade": 4, "posicao": [7, 2],
+     "fragil": true, "urgente": false}
+  ]
+}

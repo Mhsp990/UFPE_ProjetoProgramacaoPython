@@ -20,13 +20,15 @@ class CarregadorArquivos():
 
 
     def criarComandos(self, lista_lotes):
-        #Converte uma lista de lotes em uma lista de comandos.
+        # Converte uma lista de lotes em uma lista de comandos.
         comandos = []
         for item in lista_lotes:
             comando = CommandColeta(
                 codinome=item["codinome"],
                 posicao=item["posicao"],
-                quantidade=item["quantidade"]
+                quantidade=item["quantidade"],
+                fragil=item.get("fragil", False),
+                urgente=item.get("urgente", False)
             )
             comandos.append(comando)
             

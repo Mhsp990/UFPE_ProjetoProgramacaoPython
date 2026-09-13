@@ -12,19 +12,21 @@ from celular_robo.comandos_base import Comando
 
 class CommandColeta(Comando):
 
-    def __init__(self, codinome, posicao, quantidade):
+    def __init__(self, codinome, posicao, quantidade, fragil = False, urgente = False):
         super().__init__()
 
         self.codinome = codinome
         self.posicao = posicao
         self.quantidade = quantidade
+        self.fragil = fragil
+        self.urgente = urgente
 
 
-    def __repr__(self):
-        return f"CommandColeta(codinome='{self.codinome}', posicao={self.posicao}, quantidade={self.quantidade})"
+    # def __repr__(self):
+    #     return f"CommandColeta(codinome='{self.codinome}', posicao={self.posicao}, quantidade={self.quantidade})"
 
     def __str__(self):
-        return f"O comando é : Coletar {self.quantidade} de '{self.codinome}' na posição {self.posicao}"
+        return f"O comando é : Coletar {self.quantidade} de '{self.codinome}' na posição {self.posicao}. Fragil : {self.fragil}, Urgente : {self.urgente}"
 
 
 

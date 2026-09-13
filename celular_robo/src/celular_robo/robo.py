@@ -205,57 +205,57 @@ class RoboColetor(Robo):
 
 
 
-#STUB TEST
-my_robo = RoboColetor('Robo R.D')
-my_robo.estrategia = RotaDireta()
-my_robo.modo = ModoColetando()
+# #STUB TEST
+# my_robo = RoboColetor('Robo R.D')
+# my_robo.estrategia = RotaDireta()
+# my_robo.modo = ModoColetando()
 
 
 
 
 
 
-print('Testando robo criado manualmente')
+# print('Testando robo criado manualmente')
 
-#comando = CommandColeta('Item AX', (3,4), 5)
-#comando.executar(my_robo)
+# #comando = CommandColeta('Item AX', (3,4), 5)
+# #comando.executar(my_robo)
 
-print(my_robo)
-
-
-carregadorArquivos = CarregadorArquivos()
-lotePedidos = carregadorArquivos.montarPedidosJson('dados/pedidos_json/lote1.json')
-lotePedidos = carregadorArquivos.criarComandos(lotePedidos)
-
-for command in lotePedidos:
-    command.executar(my_robo)
-
-print(f'Minha bandeja tem : {len(my_robo)}')
-
-print(lotePedidos)
+# print(my_robo)
 
 
-print("TESTANDO AGORA O ROBO FABRICADO.")
+# carregadorArquivos = CarregadorArquivos()
+# lotePedidos = carregadorArquivos.montarPedidosJson('dados/pedidos_json/lote1.json')
+# lotePedidos = carregadorArquivos.criarComandos(lotePedidos)
 
-try:
-    robo_fabricado = criar_robo_configurado("RoboColetor", "Robo Ford")
-    print(f'Robo fabricado com sucesso : {robo_fabricado}')
-    lote_itens = carregadorArquivos.montarPedidosJson('dados/pedidos_json/lote1.json')
-    lote_pedidos = carregadorArquivos.criarComandos(lote_itens)
+# for command in lotePedidos:
+#     command.executar(my_robo)
+
+# print(f'Minha bandeja tem : {len(my_robo)}')
+
+# print(lotePedidos)
+
+
+# print("TESTANDO AGORA O ROBO FABRICADO.")
+
+# try:
+#     robo_fabricado = criar_robo_configurado("RoboColetor", "Robo Ford")
+#     print(f'Robo fabricado com sucesso : {robo_fabricado}')
+#     lote_itens = carregadorArquivos.montarPedidosJson('dados/pedidos_json/lote1.json')
+#     lote_pedidos = carregadorArquivos.criarComandos(lote_itens)
 
     
-    observador_registro = RegistroAuditoria()
-    robo_fabricado.adicionar_observador(observador_registro)
+#     observador_registro = RegistroAuditoria()
+#     robo_fabricado.adicionar_observador(observador_registro)
 
-    for cmd in lote_pedidos:
-        cmd.executar(robo_fabricado)
+#     for cmd in lote_pedidos:
+#         cmd.executar(robo_fabricado)
 
-    print(f"Quantidade de items na bandeja de {robo_fabricado.nome}: {len(my_robo)}")
-    print("Requisitando informações do log")
-    observador_registro.imprimir_relatório()
+#     print(f"Quantidade de items na bandeja de {robo_fabricado.nome}: {len(my_robo)}")
+#     print("Requisitando informações do log")
+#     observador_registro.imprimir_relatório()
 
 
 
-except Exception as e:
-    print("---------------------------------------")
-    print(e)
+# except Exception as e:
+#     print("---------------------------------------")
+#     print(e)
