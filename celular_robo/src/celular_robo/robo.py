@@ -50,27 +50,26 @@ class QuantidadeValida:
 
 #Itens
 #Será uma classe que presentará um item que pode ser pedido.
-class ItemLotePedido():
-    quantidade = QuantidadeValida() 
+# class ItemLotePedido():
+#     quantidade = QuantidadeValida() 
 
-    def __init__(self, codinome, quantidade, posicao_x, posicao_y, fragil = False, urgente = False):
-        self.codinome = codinome
+#     def __init__(self, codinome, quantidade, posicao_x, posicao_y, fragil = False, urgente = False):
+#         self.codinome = codinome
 
-        self.quantidade = quantidade 
+#         self.quantidade = quantidade 
 
-        self._posicao_x = posicao_x 
-        self._posicao_y = posicao_y 
-        self.fragil = fragil
-        self.urgente = urgente
+#         self._posicao_x = posicao_x 
+#         self._posicao_y = posicao_y 
+#         self.fragil = fragil
+#         self.urgente = urgente
 
-    @property
-    def posicao(self):
-        return (self._posicao_x, self._posicao_y)
+#     @property
+#     def posicao(self):
+#         return (self._posicao_x, self._posicao_y)
 
 
 #Bandeja
 #Ao utilizar como classe ao invés de uma simples lista, me permitirá guardar mais informações caso necessário.
-#Ademais, conterá uma lista de ItemPedido
 class Bandeja:
     QUANTIDADE_MAXIMA = 20 # Para este exemplo, a bandeja so podera conter 20 items simultaneamente.
     quantidade = QuantidadeValida(QUANTIDADE_MAXIMA)

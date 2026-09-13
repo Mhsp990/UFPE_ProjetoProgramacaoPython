@@ -85,7 +85,26 @@ TODO: uma tabela curta ligando cada mecanismo (descriptors, `__init_subclass__`,
 os 5 design patterns, LPS, exceções, persistência, testes) ao arquivo/classe
 correspondente — facilita a correção.
 
+Tabela curta
 
+Exceções ---> Excecoes.py
+Descriptors ---> Robo.py
+__init_subclass__ --> Estão nas classes que a implementa (que não herdou de arquivos bases para usar) : Estrategia.py
+tests -> Está nos arquivos da pasta test.
+Persistência --> persistencia.py e, para usar os arquivos, estão na pasta dados.
+cli --> cli.py
+
+PATTERNS
+command --> comandos.py
+state --> modos.py
+observer --> observador.py
+strategy --> estrategias.py
+fabrica --> fabrica.py
+
+
+
+
+#Explicação "mais detalhada"
 EXCEÇÕES
 As exceções criadas podem ser encontradas principalmente em:
     -Excecoes.py
@@ -94,7 +113,7 @@ As exceções criadas podem ser encontradas principalmente em:
 DESCRIPTORS
 Os descriptors podem ser encontrados principalmente em:
     -Coordenadas : Já vem do robo base.
-    -QuantidadeValida : Implementado em robo.py e utilizado na classes "ItemLotePedido" e "Bandeja" para impedir quantidades inválidas.
+    -QuantidadeValida : Implementado em robo.py e utilizado na classe "Bandeja" para impedir quantidades inválidas.
 
 
 ### __init_subclass__
@@ -124,7 +143,7 @@ Fabrica
 
 
 LPS
-Tudo relacionado a LPS, tal como o algoritmo para criar e as regras (exceções, requer, area, etc) podem ser encontrados no arquivo factory.py
+Tudo relacionado a LPS, tal como o algoritmo para criar e as regras (exceções, requer, area, etc) podem ser encontrados no arquivo fabrica.py
 
 
 TESTES

@@ -67,7 +67,8 @@ def validar_configuracao(tipo_nome : str, estrategia_nome : str, area_nome : str
 
     #Agora, validar se não há conflitos de configurações.
     if estrategia_nome in EXCLUDES.get(area_nome,set()):
-        raise ConfiguracaoIncompativel(f"A estrategia {estrategia_nome} é incompatível com area {area_nome}")
+        #raise ConfiguracaoIncompativel(f"A estrategia {estrategia_nome} é incompatível com area {area_nome}")
+        raise ConfiguracaoInvalida(f"A estrategia {estrategia_nome} é incompatível com area {area_nome}") #Devido ao pytest, que espera isso.
     
 
     

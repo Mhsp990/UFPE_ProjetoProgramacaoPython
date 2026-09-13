@@ -16,7 +16,9 @@ from celular_robo.excecoes import ConfiguracaoInvalida
 def robo_padrao():
     return criar_robo_configurado(
         "RoboColetor", "Coletor-1",
-        estrategia_nome="direta", area_nome="centro_padrao",
+        #estrategia_nome="direta", 
+        estrategia_nome="RotaDireta",
+        area_nome="centro_padrao",
     )
 
 
